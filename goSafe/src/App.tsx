@@ -5,6 +5,7 @@ import { CallMe } from "./components/CallMe";
 import { EmergencyContact } from "./components/EmergencyContact";
 import { EnterLocation } from "./components/EnterLocation";
 import { LightDarkMode } from "./components/LightDarkMode";
+import Navbar from "./components/navbar";
 
 function App() {
   const [location, setLocation] = useState("");
@@ -96,6 +97,7 @@ function App() {
           <CallMe darkMode={darkMode} handleCallClick={handleCallClick} />
         </div>
       </div>
+      <Navbar />
     </div>
   );
 }
