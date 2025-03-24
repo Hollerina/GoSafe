@@ -9,12 +9,7 @@ function App() {
 
   const [phoneNumber, setNumber] = useState('')
 
-<<<<<<< Updated upstream
   const handleTextClick = () => {
-    const message = `Hi, this is Holly. Just letting you know that I am checking in at ${location || 'unknown location'}`
-    
-=======
-  const handleClick = () => {
     if (phoneNumber.length < 11) {
       setValid(false)
       return
@@ -24,19 +19,15 @@ function App() {
       location || 'unknown location'
     }`
 
->>>>>>> Stashed changes
     window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(
       message
     )}`
   }
-<<<<<<< Updated upstream
 
   const handleCallClick = () => {
     window.location.href = `tel:${phoneNumber}`
   }
 
-=======
->>>>>>> Stashed changes
   return (
     <>
       <div>
@@ -94,13 +85,6 @@ function App() {
             }}
           />
         </div>
-<<<<<<< Updated upstream
-        
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <button onClick={handleTextClick}>TEXT ME</button>
-          <button onClick={handleCallClick}>CALL ME</button>
-        </div>
-=======
         <div style={{ marginBottom: '20px', marginTop: '20px' }}>
           <label
             htmlFor='location'
@@ -124,8 +108,10 @@ function App() {
           />
         </div>
 
-        <button onClick={handleClick}>TEXT ME</button>
->>>>>>> Stashed changes
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button onClick={handleTextClick}>TEXT ME</button>
+          <button onClick={handleCallClick}>CALL ME</button>
+        </div>
       </div>
       <p className='read-the-docs'>
         Click on the Vite and React logos to learn more
