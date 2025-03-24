@@ -5,21 +5,38 @@ import './App.css'
 
 function App() {
   const [location, setLocation] = useState('')
+  const [valid, setValid] = useState(true)
 
-  const phoneNumber = '07585771948'
+  const [phoneNumber, setNumber] = useState('')
 
+<<<<<<< Updated upstream
   const handleTextClick = () => {
     const message = `Hi, this is Holly. Just letting you know that I am checking in at ${location || 'unknown location'}`
     
+=======
+  const handleClick = () => {
+    if (phoneNumber.length < 11) {
+      setValid(false)
+      return
+    }
+
+    const message = `Hi, this is Holly. Just letting you know that I am checking in at ${
+      location || 'unknown location'
+    }`
+
+>>>>>>> Stashed changes
     window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(
       message
     )}`
   }
+<<<<<<< Updated upstream
 
   const handleCallClick = () => {
     window.location.href = `tel:${phoneNumber}`
   }
 
+=======
+>>>>>>> Stashed changes
   return (
     <>
       <div>
@@ -33,29 +50,82 @@ function App() {
       <h1>Vite + React</h1>
       <div className='card'>
         <div style={{ marginBottom: '20px', marginTop: '20px' }}>
-          <label htmlFor="location" style={{ display: 'block', marginBottom: '8px' }}>
-            Enter your location:
+          <label
+            htmlFor='contact'
+            style={{ display: 'block', marginBottom: '8px' }}
+          >
+            Enter your emergency contact:
           </label>
           <input
-            id="location"
-            type="text"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            placeholder="Enter your location"
-            style={{ 
-              padding: '8px', 
-              width: '100%', 
+            id='contact'
+            type='text'
+            maxLength={11}
+            pattern='[0-9]*'
+            inputMode='numeric'
+            onKeyDown={(e) => {
+              if (
+                e.key === 'Backspace' ||
+                e.key === 'Delete' ||
+                e.key === 'Tab' ||
+                e.key === 'Escape' ||
+                e.key === 'Enter' ||
+                e.key.includes('Arrow') ||
+                (e.ctrlKey && ['a', 'c', 'v', 'x'].includes(e.key))
+              ) {
+                return
+              }
+
+              if (!/[0-9]/.test(e.key)) {
+                e.preventDefault()
+              }
+            }}
+            value={phoneNumber}
+            onChange={(e) => {
+              setValid(true)
+              setNumber(e.target.value)
+            }}
+            placeholder='e.g 07987654321'
+            style={{
+              padding: '8px',
+              width: '100%',
               marginBottom: '10px',
               borderRadius: '4px',
-              border: '1px solid #ccc'
+              border: valid ? '1px solid #ccc' : '1px solid red',
             }}
           />
         </div>
+<<<<<<< Updated upstream
         
         <div style={{ display: 'flex', gap: '10px' }}>
           <button onClick={handleTextClick}>TEXT ME</button>
           <button onClick={handleCallClick}>CALL ME</button>
         </div>
+=======
+        <div style={{ marginBottom: '20px', marginTop: '20px' }}>
+          <label
+            htmlFor='location'
+            style={{ display: 'block', marginBottom: '8px' }}
+          >
+            Enter your location:
+          </label>
+          <input
+            id='location'
+            type='text'
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder='Enter your location'
+            style={{
+              padding: '8px',
+              width: '100%',
+              marginBottom: '10px',
+              borderRadius: '4px',
+              border: '1px solid #ccc',
+            }}
+          />
+        </div>
+
+        <button onClick={handleClick}>TEXT ME</button>
+>>>>>>> Stashed changes
       </div>
       <p className='read-the-docs'>
         Click on the Vite and React logos to learn more
