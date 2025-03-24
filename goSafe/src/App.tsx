@@ -13,7 +13,6 @@ function App() {
   const [phoneNumber, setNumber] = useState('')
   const [darkMode, setDarkMode] = useState(false)
 
-  // Apply theme changes when darkMode state changes
   useEffect(() => {
     if (darkMode) {
       document.body.style.backgroundColor = '#333'
@@ -33,14 +32,20 @@ function App() {
       setValid(false)
       return
     }
+    
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        const message = `Hi, this is Emma. Just letting you know that I am checking in at ${
+          location || "unknown location"
+        }. My current geolocation is: https://www.google.com/maps?q=${
+          position.coords.latitude
+        },${position.coords.longitude}`
 
-    const message = `Hi, this is Holly. Just letting you know that I am checking in at ${
-      location || 'unknown location'
-    }`
-
-    window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(
-      message
-    )}`
+        window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(
+          message
+        )}`
+      })
+    }
   }
 
   const handleCallClick = () => {
@@ -64,7 +69,6 @@ function App() {
             flexDirection: 'row',
             alignItems: 'center',
             marginBottom: '20px',
-
             position: 'fixed',
             top: 0,
             left: 0,
@@ -73,9 +77,8 @@ function App() {
             padding: '15px',
             margin: 0,
             textAlign: 'center',
-            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', // optional shadow
-
-            zIndex: 1000, // ensures it stays on top of other content
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+            zIndex: 1000, 
           }}
         >
           <div
@@ -93,7 +96,6 @@ function App() {
           className='card'
           style={{
             backgroundColor: darkMode ? '#444' : '#f5f5f5',
-            // padding: '20px',
             borderRadius: '8px',
             boxShadow: darkMode
               ? '0 4px 6px rgba(0,0,0,0.3)'
