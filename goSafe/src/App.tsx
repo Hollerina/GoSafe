@@ -1,105 +1,156 @@
-import { useState, useEffect } from "react";
-import "./App.css";
-import { TextMe } from "./components/TextMe";
-import { CallMe } from "./components/CallMe";
-import { EmergencyContact } from "./components/EmergencyContact";
-import { EnterLocation } from "./components/EnterLocation";
-import { LightDarkMode } from "./components/LightDarkMode";
-import Navbar from "./components/navbar";
+import { useState, useEffect } from 'react'
+import './App.css'
+import { TextMe } from './components/TextMe'
+import { CallMe } from './components/CallMe'
+import { EmergencyContact } from './components/EmergencyContact'
+import { EnterLocation } from './components/EnterLocation'
+import { LightDarkMode } from './components/LightDarkMode'
+import Navbar from './components/navbar'
 
 function App() {
-  const [location, setLocation] = useState("");
-  const [valid, setValid] = useState(true);
-  const [phoneNumber, setNumber] = useState("");
-  const [darkMode, setDarkMode] = useState(false);
+  const [location, setLocation] = useState('')
+  const [valid, setValid] = useState(true)
+  const [phoneNumber, setNumber] = useState('')
+  const [darkMode, setDarkMode] = useState(false)
 
   // Apply theme changes when darkMode state changes
   useEffect(() => {
     if (darkMode) {
-      document.body.style.backgroundColor = "#333";
-      document.body.style.color = "#fff";
+      document.body.style.backgroundColor = '#333'
+      document.body.style.color = '#fff'
     } else {
-      document.body.style.backgroundColor = "#fff";
-      document.body.style.color = "#000";
+      document.body.style.backgroundColor = '#fff'
+      document.body.style.color = '#000'
     }
-  }, [darkMode]);
+  }, [darkMode])
 
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
+    setDarkMode(!darkMode)
+  }
 
   const handleTextClick = () => {
     if (phoneNumber.length < 11) {
-      setValid(false);
-      return;
+      setValid(false)
+      return
     }
 
     const message = `Hi, this is Holly. Just letting you know that I am checking in at ${
-      location || "unknown location"
-    }`;
+      location || 'unknown location'
+    }`
 
     window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(
       message
-    )}`;
-  };
+    )}`
+  }
 
   const handleCallClick = () => {
-    window.location.href = `tel:${phoneNumber}`;
-  };
+    window.location.href = `tel:${phoneNumber}`
+  }
 
   return (
-    <div
-      style={{
-        backgroundColor: darkMode ? "#333" : "#fff",
-        color: darkMode ? "#fff" : "#000",
-        minHeight: "100vh",
-        padding: "20px",
-        transition: "background-color 0.3s, color 0.3s",
-      }}
-    >
+    <>
       <div
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "20px",
+          backgroundColor: darkMode ? '#333' : '#fff',
+          color: darkMode ? '#fff' : '#000',
+          transition: 'background-color 0.3s, color 0.3s',
+          width: '100%',
         }}
       >
-        <h1>Go Safe</h1>
-        <LightDarkMode toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-      </div>
-      <div
-        className="card"
-        style={{
-          backgroundColor: darkMode ? "#444" : "#f5f5f5",
-          padding: "20px",
-          borderRadius: "8px",
-          boxShadow: darkMode
-            ? "0 4px 6px rgba(0,0,0,0.3)"
-            : "0 2px 4px rgba(0,0,0,0.1)",
-        }}
-      >
-        <div style={{ marginBottom: "20px", marginTop: "20px" }}>
-          <EmergencyContact
-            phoneNumber={phoneNumber}
-            setValid={setValid}
-            setNumber={setNumber}
-            valid={valid}
-            darkMode={darkMode}
-          />
-        </div>
-        <div style={{ marginBottom: "20px", marginTop: "20px" }}>
-        <EnterLocation location={location} setLocation={setLocation} darkMode={darkMode}/> 
-        </div>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexDirection: 'row',
+            alignItems: 'center',
+            marginBottom: '20px',
 
-        <div style={{ display: "flex", gap: "10px" }}>
-          <TextMe darkMode={darkMode} handleTextClick={handleTextClick} />
-          <CallMe darkMode={darkMode} handleCallClick={handleCallClick} />
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: 'calc(100% - 30px)',
+            backgroundColor: darkMode ? '#444' : '#f5f5f5',
+            padding: '15px',
+            margin: 0,
+            textAlign: 'center',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', // optional shadow
+
+            zIndex: 1000, // ensures it stays on top of other content
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              width: '100%',
+              justifyContent: 'center',
+            }}
+          >
+            <h1>Go Safe</h1>
+          </div>
+          <LightDarkMode toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+        </div>
+        <div
+          className='card'
+          style={{
+            backgroundColor: darkMode ? '#444' : '#f5f5f5',
+            // padding: '20px',
+            borderRadius: '8px',
+            boxShadow: darkMode
+              ? '0 4px 6px rgba(0,0,0,0.3)'
+              : '0 2px 4px rgba(0,0,0,0.1)',
+            marginTop: '80px',
+            transition: 'background-color 0.3s, box-shadow 0.3s',
+          }}
+        >
+          <div style={{ marginBottom: '20px', marginTop: '20px' }}>
+            <EmergencyContact
+              phoneNumber={phoneNumber}
+              setValid={setValid}
+              setNumber={setNumber}
+              valid={valid}
+              darkMode={darkMode}
+            />
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '10px',
+            }}
+          >
+            <CallMe darkMode={darkMode} handleCallClick={handleCallClick} />
+          </div>
+
+          <div style={{ marginBottom: '20px', marginTop: '20px' }}>
+            <EnterLocation
+              location={location}
+              setLocation={setLocation}
+              darkMode={darkMode}
+            />
+          </div>
+
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <TextMe darkMode={darkMode} handleTextClick={handleTextClick} />
+          </div>
         </div>
       </div>
-      <Navbar />
-    </div>
-  );
+
+      <nav
+        style={{
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          width: '100%',
+          backgroundColor: '#fff',
+          boxShadow: '0 -2px 10px rgba(0, 0, 0, 0.1)',
+          zIndex: 1000,
+        }}
+      >
+        <Navbar />
+      </nav>
+    </>
+  )
 }
 
-export default App;
+export default App
