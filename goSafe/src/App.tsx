@@ -45,6 +45,14 @@ function App() {
           message
         )}`
       })
+    } else {
+      const message = `Hi, this is Emma. Just letting you know that I am checking in at ${
+        location || "unknown location"
+      }`        
+      window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(
+      message
+    )}`
+      
     }
   }
 
