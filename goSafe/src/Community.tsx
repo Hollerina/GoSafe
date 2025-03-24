@@ -1,9 +1,14 @@
 import Navbar from "./components/navbar"
 
 export const Community = () => {
+
   return (
     <>
-      <div>Community</div>
+      <h1>Community</h1>
+      <div>
+        <button style={{ backgroundColor: '#ff33ff' }}>Walk me Home</button><br /><br /><br />
+        <button style={{ backgroundColor: '#ff33ff' }}>Talk me Home</button>
+      </div>
       <nav
         style={{
           position: 'fixed',
