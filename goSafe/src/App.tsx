@@ -32,11 +32,11 @@ function App() {
       setValid(false)
       return
     }
-    
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
         const message = `Hi, this is Emma. Just letting you know that I am checking in at ${
-          location || "unknown location"
+          location || 'unknown location'
         }. My current geolocation is: https://www.google.com/maps?q=${
           position.coords.latitude
         },${position.coords.longitude}`
@@ -76,7 +76,7 @@ function App() {
             justifyContent: 'space-between',
             flexDirection: 'row',
             alignItems: 'center',
-            marginBottom: '20px',
+            marginBottom: '10px',
             position: 'fixed',
             top: 0,
             left: 0,
@@ -86,7 +86,7 @@ function App() {
             margin: 0,
             textAlign: 'center',
             boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-            zIndex: 1000, 
+            zIndex: 1000,
           }}
         >
           <div
@@ -96,7 +96,13 @@ function App() {
               justifyContent: 'center',
             }}
           >
-            <h1>Go Safe</h1>
+            <h1
+              style={{
+                margin: 0,
+              }}
+            >
+              Go Safe
+            </h1>
           </div>
           <LightDarkMode toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
         </div>
@@ -108,7 +114,7 @@ function App() {
             boxShadow: darkMode
               ? '0 4px 6px rgba(0,0,0,0.3)'
               : '0 2px 4px rgba(0,0,0,0.1)',
-            marginTop: '80px',
+            marginTop: '20px',
             transition: 'background-color 0.3s, box-shadow 0.3s',
           }}
         >
