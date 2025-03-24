@@ -1,127 +1,103 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Navbar from './components/navbar'
+import { useState, useEffect } from "react";
+import "./App.css";
+import { TextMe } from "./components/TextMe";
+import { CallMe } from "./components/CallMe";
+import { EmergencyContact } from "./components/EmergencyContact";
+import { EnterLocation } from "./components/EnterLocation";
+import { LightDarkMode } from "./components/LightDarkMode";
 
 function App() {
-  const [location, setLocation] = useState('')
-  const [valid, setValid] = useState(true)
+  const [location, setLocation] = useState("");
+  const [valid, setValid] = useState(true);
+  const [phoneNumber, setNumber] = useState("");
+  const [darkMode, setDarkMode] = useState(false);
 
-  const [phoneNumber, setNumber] = useState('')
+  // Apply theme changes when darkMode state changes
+  useEffect(() => {
+    if (darkMode) {
+      document.body.style.backgroundColor = "#333";
+      document.body.style.color = "#fff";
+    } else {
+      document.body.style.backgroundColor = "#fff";
+      document.body.style.color = "#000";
+    }
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
 
   const handleTextClick = () => {
     if (phoneNumber.length < 11) {
-      setValid(false)
-      return
+      setValid(false);
+      return;
     }
 
     const message = `Hi, this is Holly. Just letting you know that I am checking in at ${
-      location || 'unknown location'
-    }`
+      location || "unknown location"
+    }`;
 
     window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(
       message
-    )}`
-  }
+    )}`;
+  };
 
   const handleCallClick = () => {
-    window.location.href = `tel:${phoneNumber}`
-  }
+    window.location.href = `tel:${phoneNumber}`;
+  };
 
   return (
-    <>
-      <div>
-        <a href='https://vite.dev' target='_blank'>
-          <img src={viteLogo} className='logo' alt='Vite logo' />
-        </a>
-        <a href='https://react.dev' target='_blank'>
-          <img src={reactLogo} className='logo react' alt='React logo' />
-        </a>
+    <div
+      style={{
+        backgroundColor: darkMode ? "#333" : "#fff",
+        color: darkMode ? "#fff" : "#000",
+        minHeight: "100vh",
+        padding: "20px",
+        transition: "background-color 0.3s, color 0.3s",
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "20px",
+        }}
+      >
+        <h1>Go Safe</h1>
+        <LightDarkMode toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
       </div>
-      <h1>Vite + React</h1>
-      <div className='card'>
-        <div style={{ marginBottom: '20px', marginTop: '20px' }}>
-          <label
-            htmlFor='contact'
-            style={{ display: 'block', marginBottom: '8px' }}
-          >
-            Enter your emergency contact:
-          </label>
-          <input
-            id='contact'
-            type='text'
-            maxLength={11}
-            pattern='[0-9]*'
-            inputMode='numeric'
-            onKeyDown={(e) => {
-              if (
-                e.key === 'Backspace' ||
-                e.key === 'Delete' ||
-                e.key === 'Tab' ||
-                e.key === 'Escape' ||
-                e.key === 'Enter' ||
-                e.key.includes('Arrow') ||
-                (e.ctrlKey && ['a', 'c', 'v', 'x'].includes(e.key))
-              ) {
-                return
-              }
-
-              if (!/[0-9]/.test(e.key)) {
-                e.preventDefault()
-              }
-            }}
-            value={phoneNumber}
-            onChange={(e) => {
-              setValid(true)
-              setNumber(e.target.value)
-            }}
-            placeholder='e.g 07987654321'
-            style={{
-              padding: '8px',
-              width: '100%',
-              marginBottom: '10px',
-              borderRadius: '4px',
-              border: valid ? '1px solid #ccc' : '1px solid red',
-            }}
+      <div
+        className="card"
+        style={{
+          backgroundColor: darkMode ? "#444" : "#f5f5f5",
+          padding: "20px",
+          borderRadius: "8px",
+          boxShadow: darkMode
+            ? "0 4px 6px rgba(0,0,0,0.3)"
+            : "0 2px 4px rgba(0,0,0,0.1)",
+        }}
+      >
+        <div style={{ marginBottom: "20px", marginTop: "20px" }}>
+          <EmergencyContact
+            phoneNumber={phoneNumber}
+            setValid={setValid}
+            setNumber={setNumber}
+            valid={valid}
+            darkMode={darkMode}
           />
         </div>
-        <div style={{ marginBottom: '20px', marginTop: '20px' }}>
-          <label
-            htmlFor='location'
-            style={{ display: 'block', marginBottom: '8px' }}
-          >
-            Enter your location:
-          </label>
-          <input
-            id='location'
-            type='text'
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            placeholder='Enter your location'
-            style={{
-              padding: '8px',
-              width: '100%',
-              marginBottom: '10px',
-              borderRadius: '4px',
-              border: '1px solid #ccc',
-            }}
-          />
+        <div style={{ marginBottom: "20px", marginTop: "20px" }}>
+        <EnterLocation location={location} setLocation={setLocation} darkMode={darkMode}/> 
         </div>
 
-        <div style={{ display: 'flex', gap: '10px' }}>
-          <button onClick={handleTextClick}>TEXT ME</button>
-          <button onClick={handleCallClick}>CALL ME</button>
+        <div style={{ display: "flex", gap: "10px" }}>
+          <TextMe darkMode={darkMode} handleTextClick={handleTextClick} />
+          <CallMe darkMode={darkMode} handleCallClick={handleCallClick} />
         </div>
       </div>
-      <p className='read-the-docs'>
-        Click on the Vite and React logos to learn more
-      </p>
-      <div>
-        <Navbar />
-      </div>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
