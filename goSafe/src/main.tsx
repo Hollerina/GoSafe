@@ -1,8 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Community } from './components/Community.tsx';
-import { Maps } from './components/Maps.tsx';
+import { Community } from './Community.tsx';
+import { Maps } from './Maps.tsx';
 import './index.css'
 import App from './App.tsx'
 
