@@ -3,7 +3,7 @@ import Navbar from "./components/navbar"
 export const Maps = () => {
   return (
     <>
-      <div>Maps</div>
+      <img src='../public/google-maps.png' width='340px' height='431px' />
       <nav
         style={{
           position: 'fixed',
