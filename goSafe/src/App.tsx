@@ -4,17 +4,20 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
   const [location, setLocation] = useState('')
 
   const phoneNumber = '07585771948'
 
-  const handleClick = () => {
+  const handleTextClick = () => {
     const message = `Hi, this is Holly. Just letting you know that I am checking in at ${location || 'unknown location'}`
     
     window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(
       message
     )}`
+  }
+
+  const handleCallClick = () => {
+    window.location.href = `tel:${phoneNumber}`
   }
 
   return (
@@ -29,13 +32,6 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className='card'>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-        
         <div style={{ marginBottom: '20px', marginTop: '20px' }}>
           <label htmlFor="location" style={{ display: 'block', marginBottom: '8px' }}>
             Enter your location:
@@ -56,7 +52,10 @@ function App() {
           />
         </div>
         
-        <button onClick={handleClick}>TEXT ME</button>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button onClick={handleTextClick}>TEXT ME</button>
+          <button onClick={handleCallClick}>CALL ME</button>
+        </div>
       </div>
       <p className='read-the-docs'>
         Click on the Vite and React logos to learn more
