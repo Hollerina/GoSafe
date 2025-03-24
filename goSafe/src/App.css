@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+#contact:focus {
+  outline: 2px yellow solid;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
